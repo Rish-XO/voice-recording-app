@@ -30,7 +30,7 @@ function App() {
     <Container>
       <Paper
         elevation={3}
-        style={{ padding: "16px", margin: "16px", maxWidth: "500px" }}
+        style={{ padding: "16px", margin: "16px", maxWidth: "400px" }}
       >
         <Typography variant="h5">Audio Recorder App</Typography>
         <Box sx={{ marginTop: "40px" }}>
