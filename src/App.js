@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Recorder from "mic-recorder-to-mp3";
 import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
+import axios from "axios";
 
 const Mp3Recorder = new Recorder({
   bitRate: 128,
@@ -16,16 +17,32 @@ function App() {
     });
   };
 
-  const stopRecording = () => {
-    Mp3Recorder.stop()
-      .getMp3()
-      .then(([buffer, blob]) => {
-        const url = URL.createObjectURL(blob);
-        setAudioURL(url);
-        setRecording(false);
-      });
+  const stopRecording = async () => {
+    try {
+      const [buffer, blob] = await Mp3Recorder.stop().getMp3();
+      const url = URL.createObjectURL(blob);
+      setAudioURL(url);
+      setRecording(false);
+      // You can now send the audio blob to the backend
+      sendAudioToBackend(blob);
+    } catch (error) {
+      console.error("Error converting audio to MP3:", error.message);
+    }
   };
- 
+  
+
+  const sendAudioToBackend = async (audioBlob) => {
+    try {
+      const formData = new FormData();
+      formData.append("audio", audioBlob, "recording.mp3");
+
+      const response = await axios.post("http://localhost:5000/transcribe", formData);
+      console.log(response.data.transcript);
+    } catch (error) {
+      console.error("Error sending audio to backend:", error.message);
+    }
+  };
+
   return (
     <Container>
       <Grid container justifyContent="center">
@@ -56,5 +73,3 @@ function App() {
 }
 
 export default App;
-
-// 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
