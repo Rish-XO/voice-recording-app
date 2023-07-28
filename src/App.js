@@ -33,10 +33,13 @@ function App() {
 
   const sendAudioToBackend = async (audioBlob) => {
     try {
-      const formData = new FormData();
-      formData.append("audio", audioBlob, "recording.mp3");
+      const options = {
+        headers: {
+          "Content-Type": "audio/mpeg",
+        },
+      };
 
-      const response = await axios.post("http://localhost:5000/transcribe", formData);
+      const response = await axios.post("http://localhost:5000/transcribe", audioBlob, options);
       console.log(response.data.transcript);
     } catch (error) {
       console.error("Error sending audio to backend:", error.message);
