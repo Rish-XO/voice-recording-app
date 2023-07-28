@@ -33,7 +33,7 @@ function App() {
         style={{ padding: "16px", margin: "16px", maxWidth: "500px" }}
       >
         <Typography variant="h5">Audio Recorder App</Typography>
-        <Box>
+        <Box sx={{ marginTop: "40px" }}>
           <Button
             variant="contained"
             onClick={recording ? stopRecording : startRecording}
@@ -42,7 +42,9 @@ function App() {
           </Button>
         </Box>
         {audioURL && (
-          <audio src={audioURL} controls style={{ marginTop: "16px" }} />
+          <Box sx={{ marginTop: "40px" }}>
+            <audio src={audioURL} controls style={{ marginTop: "16px" }} />
+          </Box>
         )}
       </Paper>
     </Container>
