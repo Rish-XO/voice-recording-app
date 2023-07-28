@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Recorder from "mic-recorder-to-mp3";
-import { Button, Paper, Typography } from "@mui/material";
+import { Button, Container, Paper, Typography } from "@mui/material";
 
 const Mp3Recorder = new Recorder({
   bitRate: 128,
@@ -8,40 +8,46 @@ const Mp3Recorder = new Recorder({
 
 function App() {
   const [audioURL, setAudioURL] = useState("");
+  const [recording, setRecording] = useState(false);
 
   const startRecording = () => {
     Mp3Recorder.start().then(() => {
-      console.log("recording started");
+      setRecording(true);
     });
   };
 
   const stopRecording = () => {
-    Mp3Recorder.stop().getMp3().then(([buffer, blob]) => {
-      const url = URL.createObjectURL(blob);
-      setAudioURL(url); 
-    });
+    Mp3Recorder.stop()
+      .getMp3()
+      .then(([buffer, blob]) => {
+        const url = URL.createObjectURL(blob);
+        setAudioURL(url);
+        setRecording(false);
+      });
   };
 
   return (
-    <div>
-      <h1>Audio Recorder App</h1>
-      <button onClick={startRecording}>Start Recording</button>
-      <button onClick={stopRecording}>Stop Recording</button>
-      {audioURL && <audio src={audioURL} controls />}
-    </div>
+    <Container>
+      <Paper
+        elevation={3}
+        style={{ padding: "16px", margin: "16px", maxWidth: "500px" }}
+      >
+        <Typography variant="h5">Audio Recorder App</Typography>
+        <Button
+          variant="contained"
+          onClick={recording ? stopRecording : startRecording}
+        >
+          {recording ? "Stop Recording" : "Start Recording"}
+        </Button>
+        {audioURL && (
+          <audio src={audioURL} controls style={{ marginTop: "16px" }} />
+        )}
+      </Paper>
+    </Container>
   );
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
 
 // import React from "react";
 // import { AudioRecorder } from "react-audio-voice-recorder";
