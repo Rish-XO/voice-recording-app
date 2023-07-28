@@ -33,18 +33,26 @@ function App() {
 
   const sendAudioToBackend = async (audioBlob) => {
     try {
-      const options = {
-        headers: {
-          "Content-Type": "audio/mpeg",
-        },
-      };
-
-      const response = await axios.post("http://localhost:5000/transcribe", audioBlob, options);
-      console.log(response.data.transcript);
+      const formData = new FormData();
+      formData.append("audio", audioBlob, "recording.mp3");
+  
+      const response = await fetch("http://localhost:5000/transcribe", {
+        method: "POST",
+        body: formData,
+      });
+      
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+  
+      const data = await response.json();
+      console.log(data.transcript);
     } catch (error) {
       console.error("Error sending audio to backend:", error.message);
     }
   };
+  
+  
 
   return (
     <Container>
