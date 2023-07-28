@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Recorder from "mic-recorder-to-mp3";
+import { Button, Paper, Typography } from "@mui/material";
 
 const Mp3Recorder = new Recorder({
   bitRate: 128,
