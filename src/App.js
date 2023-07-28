@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import Recorder from "mic-recorder-to-mp3";
 import { Box, Button, Container, Paper, Typography } from "@mui/material";
+// using material UI for component building
 
+//initial representing of recorder at bitRate: 128
 const Mp3Recorder = new Recorder({
   bitRate: 128,
 });
 
 function App() {
-  const [audioURL, setAudioURL] = useState("");
-  const [recording, setRecording] = useState(false);
+  const [audioURL, setAudioURL] = useState(""); // showing the audio element with react state
+  const [recording, setRecording] = useState(false); // recording state for button change
 
   const startRecording = () => {
     Mp3Recorder.start().then(() => {
