@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Recorder from "mic-recorder-to-mp3";
-import { Button, Container, Paper, Typography } from "@mui/material";
+import { Box, Button, Container, Paper, Typography } from "@mui/material";
 
 const Mp3Recorder = new Recorder({
   bitRate: 128,
@@ -33,12 +33,14 @@ function App() {
         style={{ padding: "16px", margin: "16px", maxWidth: "500px" }}
       >
         <Typography variant="h5">Audio Recorder App</Typography>
-        <Button
-          variant="contained"
-          onClick={recording ? stopRecording : startRecording}
-        >
-          {recording ? "Stop Recording" : "Start Recording"}
-        </Button>
+        <Box>
+          <Button
+            variant="contained"
+            onClick={recording ? stopRecording : startRecording}
+          >
+            {recording ? "Stop Recording" : "Start Recording"}
+          </Button>
+        </Box>
         {audioURL && (
           <audio src={audioURL} controls style={{ marginTop: "16px" }} />
         )}
