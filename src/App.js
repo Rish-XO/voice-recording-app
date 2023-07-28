@@ -12,17 +12,19 @@ function App() {
   const [audioURL, setAudioURL] = useState(""); // showing the audio element with react state
   const [recording, setRecording] = useState(false); // recording state for button change
 
+  //start recording function
   const startRecording = () => {
     Mp3Recorder.start().then(() => {
       setRecording(true);
     });
   };
 
+  // stop recording function
   const stopRecording = () => {
     Mp3Recorder.stop()
       .getMp3()
       .then(([buffer, blob]) => {
-        const url = URL.createObjectURL(blob);
+        const url = URL.createObjectURL(blob); // creating url for rendering the audio
         setAudioURL(url);
         setRecording(false);
       });
