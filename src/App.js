@@ -10,10 +10,12 @@ const Mp3Recorder = new Recorder({
 function App() {
   const [audioURL, setAudioURL] = useState("");
   const [recording, setRecording] = useState(false);
+  const [transcript, setTranscript] = useState(null)
 
   const startRecording = () => {
     Mp3Recorder.start().then(() => {
       setRecording(true);
+      setTranscript(null)
     });
   };
 
@@ -51,6 +53,7 @@ function App() {
   
       const data = await response.json();
       console.log("Received audio data:", data);
+      setTranscript(data)
     } catch (error) {
       console.error("Error sending audio to backend:", error.message);
     }
@@ -80,6 +83,14 @@ function App() {
               </Box>
             )}
           </Paper>
+          {transcript && 
+          <Paper
+          elevation={3}
+          style={{ padding: "16px", margin: "16px", maxWidth: "400px" }}
+          >
+            <Typography>Transcript</Typography>
+          </Paper>
+          }
         </Grid>
       </Grid>
     </Container>
