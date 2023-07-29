@@ -20,7 +20,13 @@ const upload = multer({
   },
 });
 
-const apiKey = "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"; // Replace this with your OpenAI API key
+// Function to convert a buffer to a readable stream
+const bufferToStream = (buffer) => {
+    return Readable.from(buffer);
+  };
+  
+
+const apiKey = "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"; // Replace this with your OpenAI API key and should store in dotenv
 
 app.post("/transcribe", upload.single("audio"), async (req, res) => {
   try {
@@ -59,7 +65,3 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-// Function to convert a buffer to a readable stream
-const bufferToStream = (buffer) => {
-  return Readable.from(buffer);
-};
