@@ -8,7 +8,7 @@ const axios = require("axios");
 
 const { Configuration, OpenAIApi } = require("openai");
 
-const app = express();
+const app = express(); 
 app.use(bodyParser.json());
 app.use(cors());
 
