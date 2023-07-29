@@ -11,6 +11,7 @@ function App() {
   const [recording, setRecording] = useState(false);
   const [transcript, setTranscript] = useState(null)
 
+  //start recording function
   const startRecording = () => {
     Mp3Recorder.start().then(() => {
       setRecording(true);
@@ -18,6 +19,7 @@ function App() {
     });
   };
 
+  //stop recording fucntion
   const stopRecording = async () => {
     try {
       const [buffer, blob] = await Mp3Recorder.stop().getMp3();
@@ -35,7 +37,8 @@ function App() {
       console.error("Error converting audio to MP3:", error.message);
     }
   };
-
+  
+  // sending the audio to backend
   const sendAudioToBackend = async (audioBlob) => {
     try {
       const formData = new FormData();
