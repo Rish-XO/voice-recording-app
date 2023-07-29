@@ -42,6 +42,8 @@ function App() {
       const formData = new FormData();
       formData.append("audio", audioBlob, "recording.mp3");
   
+      console.log("sending the data to backend");
+      
       const response = await fetch("http://localhost:5000/transcribe", {
         method: "POST",
         body: formData,
@@ -88,7 +90,7 @@ function App() {
           elevation={3}
           style={{ padding: "16px", margin: "16px", maxWidth: "400px" }}
           >
-            <Typography>Transcript</Typography>
+            <Typography>{transcript}</Typography>
           </Paper>
           }
         </Grid>
