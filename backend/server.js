@@ -26,7 +26,7 @@ const bufferToStream = (buffer) => {
   };
   
 
-const apiKey = "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"; // Replace this with your OpenAI API key and should store in dotenv
+const apiKey = "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"; // Replace this with your OpenAI API key and should store in dotenv
 
 app.post("/transcribe", upload.single("audio"), async (req, res) => {
   try {
