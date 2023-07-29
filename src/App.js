@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Recorder from "mic-recorder-to-mp3";
 import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
-import axios from "axios";
 
 const Mp3Recorder = new Recorder({
   bitRate: 128,
@@ -43,7 +42,7 @@ function App() {
       formData.append("audio", audioBlob, "recording.mp3");
   
       console.log("sending the data to backend");
-      
+
       const response = await fetch("http://localhost:5000/transcribe", {
         method: "POST",
         body: formData,
