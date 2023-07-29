@@ -23,13 +23,17 @@ function App() {
       const url = URL.createObjectURL(blob);
       setAudioURL(url);
       setRecording(false);
+
+      if (!blob) {
+        console.error("Error: Invalid audioBlob");
+        return;
+      }
       // You can now send the audio blob to the backend
       sendAudioToBackend(blob);
     } catch (error) {
       console.error("Error converting audio to MP3:", error.message);
     }
   };
-  
 
   const sendAudioToBackend = async (audioBlob) => {
     try {
@@ -40,18 +44,17 @@ function App() {
         method: "POST",
         body: formData,
       });
-      
+  
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
   
       const data = await response.json();
-      console.log(data.transcript);
+      console.log("Received audio data:", data);
     } catch (error) {
       console.error("Error sending audio to backend:", error.message);
     }
   };
-  
   
 
   return (
